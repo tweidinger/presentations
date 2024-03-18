@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="@@base@@" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, height=device-height, initial-scale=1" />
+    <link rel="stylesheet" href="engine/main.css" />
+    <link rel="stylesheet" href="theme/sanfrancisco.css" />
+    <link rel="stylesheet" href="engine/katex/katex.min.css" />
+    <!--<link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />-->
+    <style>
+    :root{
+--logo: /assets/icon.svg;
+--darkaccent1color: #fff;
+--lightaccent1color: #fff;
+--accent2: #43aa8b;
+--accent3: #f9c74f;
+--accent4: #90be6d;
+--accent5: #f8961e;
+--accent6: #577590;
+--lighttitletextcolor: #fff;
+--darktitletextcolor: #fff;
+--lightbodytextcolor: #fff;
+--darkbodytextcolor: #fff;
+--lightbackgroundcolor: transparent;
+--darkbackgroundcolor: transparent;
+--bodyfont: ui-monospace;
+--titlefont: system-ui;
+--lightframecolor: #000000;
+--darkframecolor: #000000;
+} 
+
+    </style>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="engine/print.css"
+      media="print"
+    />
+  </head>
+
+  <body class="responsive">
+    <div class="reveal">
+      <div class="slides"><section class="variable-size-headings has-header light cover-container responsive present fit-warning has-dark-background fitted" data-background-color="#00a8ff" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-cover" style="width: 100%; font-size: 0.766rem;">
+        <div style=""><h1 id="buildcross-platformappsusingyourfavoritewebstack">Build Cross-Platform Apps Using Your Favorite Web Stack</h1>
+
+<h3 id="reasonablysecureedition">Reasonably Secure Edition</h3></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light title-container responsive present has-dark-background fitted" data-background-color="#0b8dff" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-title" style="width: 100%; font-size: 1rem;">
+        <div style=""><h2 id="whatwillyoulearn">What Will You Learn?</h2></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light title-container responsive present has-dark-background fitted" data-background-color="#1672ff" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-title" style="width: 100%; font-size: 1rem;">
+        <div style=""><h2 id="whatisanappreally">What is an <em>App</em> really?</h2></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light default-container responsive present has-dark-background fitted" data-background-color="#2158ff" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-default" style="width: 100%; font-size: 1rem;">
+        <div style=""><table>
+<colgroup>
+<col>
+</colgroup>
+
+<tbody>
+<tr>
+	<td>&gt; <strong>Application software</strong></td>
+</tr>
+<tr>
+	<td>&gt; <strong>Mobile app</strong>, software designed to run on smartphones and other mobile devices</td>
+</tr>
+<tr>
+	<td>&gt; <strong>Web application</strong> or web app, software designed to run inside a web</td>
+</tr>
+</tbody>
+</table></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light v-split-container responsive present has-dark-background fitted" data-background-color="#2c3dff" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-v-split media-grid" style="width: 100%; font-size: 1rem;">
+        <div style=""><h4 id="web">Web</h4>
+
+<h4 id="native">Native</h4>
+
+<h4 id="simple">Simple</h4>
+
+<h2 id="tauri">Tauri</h2></div>
+        <figure style=""><img src="images/TAURI_Glyph_Color.svg" class=" size-contain position-right-center"></figure>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+</section><section class="variable-size-headings has-header light full-image-container responsive present has-dark-background fitted" data-background-color="#372eff" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-full-image media-grid" style="width: 100%; font-size: 1rem;">
+        <figure style=""><img src="images/Screenshot%202024-02-26%20at%2017.29.03.png" class=" size-contain position-center-center"></figure>
+        
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+</section><section class="variable-size-headings has-header light grid-container responsive present has-dark-background fitted" data-background-color="#411fff" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-grid grid-items-3 media-grid" style="width: 100%; font-size: 1rem;">
+        <div style=""><h2 id="thetechstack">The Tech Stack</h2>
+<div class="layout-grid media-grid grid-items-3"><figure><img src="images/TAURI_Glyph_Color.svg" class=" size-contain position-center-center"></figure><figure><img src="images/WRY_Logo_Dark.svg" class=" size-contain position-center-center"></figure><figure><img src="images/TAO_Logo_Dark.svg" class=" size-contain position-center-center"></figure></div>
+
+</div><div style=""><div class="layout-grid media-grid grid-items-3"><figure><img src="images/rust-logo-blk.svg" class=" size-contain position-center-center"></figure><figure><img src="images/Kotlin_logo_2021.svg" class=" size-contain position-center-center"></figure><figure><img src="images/Swift_logo.svg" class=" size-contain position-center-center"></figure></div>
+
+</div><div style=""><div class="layout-grid media-grid grid-items-2"><figure><img src="images/WebKit_logo_(2015).svg" class=" size-contain position-center-center"></figure><figure><img src="images/Chromium_Logo.svg" class=" size-contain position-center-center"></figure></div>
+</div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+</section><section class="variable-size-headings has-header light title-container responsive present has-dark-background fitted" data-background-color="#4c11ff" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-title" style="width: 100%; font-size: 1rem;">
+        <div style=""><h2 id="webviews">WebViews</h2>
+
+<p>To Bundle, or Not to Bundle?</p></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light full-image-container responsive present has-dark-background fitted" data-background-color="#5602ff" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-full-image media-grid" style="width: 100%; font-size: 1rem;">
+        <figure style=""><img src="images/update-lag%20(9).svg" class=" size-contain position-center-center"></figure>
+        
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+</section><section class="variable-size-headings has-header light title-container responsive present has-dark-background fitted" data-background-color="#6100ff" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-title" style="width: 100%; font-size: 1rem;">
+        <div style=""><hgroup><p class="kicker">Web vs Native</p>
+
+<h2 id="threatmodel">Threat Model</h2></hgroup></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light v-split-container responsive present fit-warning has-dark-background fitted" data-background-color="#6b00ff" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-v-split" style="width: 100%; font-size: 0.719rem;">
+        <div style=""><h2 id="whatisatrustboundary">What is a Trust Boundary?</h2></div>
+        <div style=""><blockquote class="is-single-quote"><div class="line"></div>
+<p>Trust boundary is a term used in computer science and security which describes a boundary where program data or execution changes its level of "trust," or where two principals with different capabilities exchange data or commands. (<em>Wikipedia</em>)</p>
+<div class="line"></div></blockquote></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+</section><section class="variable-size-headings has-header light default-container responsive present has-dark-background fitted" data-background-color="#7500ff" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-default media-grid" style="width: 100%; font-size: 1rem;">
+        <div style=""><p>Tauri Architecture</p>
+
+<h2 id="trustboundaries">Trust Boundaries</h2>
+<div class="single-image-wrapper"><figure><img src="images/security-boundaries.svg" class=" size-contain position-center-center"></figure></div></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light title-container responsive present has-dark-background fitted" data-background-color="#7f00ff" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-title" style="width: 100%; font-size: 1rem;">
+        <div style=""><h2 id="ipc">IPC</h2>
+
+<p>Communication across Trust Boundaries</p></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light default-container responsive present fit-warning has-dark-background fitted" data-background-color="#8c00ff" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-default" style="width: 100%; font-size: 0.672rem;">
+        <div style=""><h2 id="tauricommands">Tauri Commands</h2>
+
+<h3 id="rustbackend">Rust Backend</h3>
+
+<pre><code class="rust hljs"><span class="hljs-meta">#[tauri::command]</span>
+<span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">my_greeting</span></span>(message: <span class="hljs-built_in">String</span>) -&gt; <span class="hljs-built_in">String</span> {
+  <span class="hljs-built_in">format!</span>(<span class="hljs-string">"{message} from Rust!"</span>)
+}
+</code></pre>
+
+<h3 id="javascriptfrontend">JavaScript Frontend</h3>
+
+<pre><code class="js hljs javascript">invoke(<span class="hljs-string">'my_greeting'</span>{ <span class="hljs-attr">message</span>: <span class="hljs-string">'Hello!'</span> }).then(<span class="hljs-function">(<span class="hljs-params">greeting</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(greeting))
+</code></pre></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light default-container responsive present fit-warning has-dark-background fitted" data-background-color="#9a00ff" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-default" style="width: 100%; font-size: 0.578rem;">
+        <div style=""><h2 id="taurievents">Tauri Events</h2>
+
+<h3 id="javascriptfrontend">JavaScript Frontend</h3>
+
+<pre><code class="js hljs javascript">emit(<span class="hljs-string">'click'</span>, { <span class="hljs-attr">message</span>: <span class="hljs-string">'Tauri is awesome!'</span> })
+</code></pre>
+
+<pre><code class="js hljs javascript"><span class="hljs-built_in">window</span>.emit(<span class="hljs-string">'event'</span>, { <span class="hljs-attr">message</span>: <span class="hljs-string">'Tauri is awesome!'</span> })
+</code></pre>
+
+<h3 id="rustbackend">Rust Backend</h3>
+
+<pre><code class="rust hljs">app.emit_all(<span class="hljs-string">"event-name"</span>, Payload { message: <span class="hljs-string">"Tauri is awesome!"</span>.into() }).unwrap();
+</code></pre>
+
+<pre><code class="rust hljs">main_window.emit(<span class="hljs-string">"event-name"</span>, Payload { message: <span class="hljs-string">"Tauri is awesome!"</span>.into() }).unwrap();
+</code></pre></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light title-container responsive present has-dark-background fitted" data-background-color="#a800ff" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-title" style="width: 100%; font-size: 1rem;">
+        <div style=""><h2 id="recap">Recap</h2>
+
+<p>Getting Beyond Basics</p></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light title-container responsive present has-dark-background fitted" data-background-color="#b600ff" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-title" style="width: 100%; font-size: 1rem;">
+        <div style=""><h2 id="hostileenvironment">Hostile Environment</h2>
+
+<p>You can't trust anything!</p></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light title-container responsive present has-dark-background fitted" data-background-color="#c200fa" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-title" style="width: 100%; font-size: 1rem;">
+        <div style=""><h2 id="sandboxing">Sandboxing</h2>
+
+<p>Finding The Balance</p></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light full-image-container responsive present has-dark-background fitted" data-background-color="#cc00f2" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-full-image media-grid" style="width: 100%; font-size: 1rem;">
+        <figure style=""><img src="images/sandboxing_cycle_2x.png" class=" size-contain position-center-center"><figcaption>https://xkcd.com/2044/</figcaption></figure>
+        
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+</section><section class="variable-size-headings has-header light title-container responsive present has-dark-background fitted" data-background-color="#d600ea" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-title" style="width: 100%; font-size: 1rem;">
+        <div style=""><h2 id="container">Container</h2>
+
+<p>Just Put It in a Box</p></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light title-container responsive present has-dark-background fitted" data-background-color="#e000e2" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-title" style="width: 100%; font-size: 1rem;">
+        <div style=""><h2 id="applicationlogicsandbox">Application Logic Sandbox</h2>
+
+<p>Reasonable Applications</p></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light title-container responsive present has-dark-background fitted" data-background-color="#e900d6" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-title" style="width: 100%; font-size: 1rem;">
+        <div style=""><h2 id="layeredsecurity">Layered Security</h2>
+
+<p>Swiss cheese</p></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light default-container responsive present has-dark-background fitted" data-background-color="#ef02c7" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-default" style="width: 100%; font-size: 0.813rem;">
+        <div style=""><h2 id="permissions">Permissions</h2>
+
+<p>Define Command Exposure</p>
+
+<pre><code class="toml hljs ini"><span class="hljs-section">[[permission]]</span>
+<span class="hljs-attr">identifier</span> = <span class="hljs-string">"my-permission"</span>
+<span class="hljs-attr">description</span> = <span class="hljs-string">"Reading files is only exposed on Windows"</span>
+<span class="hljs-attr">platforms</span> = [<span class="hljs-string">"Windows"</span>]
+<span class="hljs-attr">commands.allow</span> = [
+    <span class="hljs-string">"fs:read_file"</span>
+]
+</code></pre></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light default-container responsive present has-dark-background fitted" data-background-color="#f504b8" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-default" style="width: 100%; font-size: 1rem;">
+        <div style=""><h2 id="scopes">Scopes</h2>
+
+<p>Define Fine Grained Access</p>
+
+<pre><code class="toml hljs ini"><span class="hljs-section">[[scope.allow]]</span>
+<span class="hljs-attr">path</span> = <span class="hljs-string">"$HOME/*"</span>
+
+<span class="hljs-section">[[scope.deny]]</span>
+<span class="hljs-attr">path</span> = <span class="hljs-string">"$HOME/secret"</span>
+</code></pre></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light default-container responsive present has-dark-background fitted" data-background-color="#fb06a9" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-default" style="width: 100%; font-size: 0.859rem;">
+        <div style=""><h2 id="capabilities">Capabilities</h2>
+
+<pre><code class="json hljs">{
+  <span class="hljs-attr">"identifier"</span>: <span class="hljs-string">"mobile-capability"</span>,
+  <span class="hljs-attr">"windows"</span>: [<span class="hljs-string">"main"</span>],
+  <span class="hljs-attr">"platforms"</span>: [<span class="hljs-string">"iOS"</span>, <span class="hljs-string">"android"</span>],
+  <span class="hljs-attr">"permissions"</span>: [
+    <span class="hljs-string">"nfc:allow-scan"</span>,
+    <span class="hljs-string">"biometric:allow-authenticate"</span>,
+    <span class="hljs-string">"barcode-scanner:allow-scan"</span>
+  ]
+}
+</code></pre></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light title-container responsive present has-dark-background fitted" data-background-color="#ff0c99" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-title" style="width: 100%; font-size: 1rem;">
+        <div style=""><h2 id="isolationpattern">Isolation Pattern</h2>
+
+<p>Frontend Developer's Hidden Power</p></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light default-container responsive present has-dark-background fitted" data-background-color="#ff1886" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-default" style="width: 100%; font-size: 1rem;">
+        <div style=""><h2 id="contentsecuritypolicy">Content Security Policy</h2>
+
+<p>First Layer of Defense</p>
+
+<pre><code class="text hljs plaintext">default-src 'self'; connect-src ipc: http://ipc.localhost
+</code></pre></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light title-container responsive present has-dark-background fitted" data-background-color="#ff2472" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-title" style="width: 100%; font-size: 1rem;">
+        <div style=""><h2 id="applicationlifecyclethreats">Application Lifecycle Threats</h2>
+
+<p>The Weakest Link Defines Security</p></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light title-container responsive present has-dark-background fitted" data-background-color="#ff2f5f" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-title" style="width: 100%; font-size: 1rem;">
+        <div style=""><h2 id="upstream">Upstream</h2>
+
+<p>The Fragile Shoulders You Stand on</p></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light title-container responsive present has-dark-background fitted" data-background-color="#ff3a4d" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-title" style="width: 100%; font-size: 1rem;">
+        <div style=""><h2 id="upstreamrust">Upstream Rust</h2>
+
+<p><code class="hljs ebnf"><span class="hljs-attribute">cargo audit</span></code>, <code class="hljs ebnf"><span class="hljs-attribute">cargo auditable</span></code>, <code class="hljs ebnf"><span class="hljs-attribute">cargo vet</span></code>, <code class="hljs ebnf"><span class="hljs-attribute">cargo crev</span></code> &amp; <code class="hljs ebnf"><span class="hljs-attribute">cargo-supply-chain</span></code></p></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light title-container responsive present has-dark-background fitted" data-background-color="#ff423f" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-title" style="width: 100%; font-size: 1rem;">
+        <div style=""><h2 id="upstreamjavascript">Upstream JavaScript</h2>
+
+<p><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> audit</code> </p></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light title-container responsive present has-dark-background fitted" data-background-color="#ff4b32" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-title" style="width: 100%; font-size: 1rem;">
+        <div style=""><h2 id="development">Development</h2>
+
+<p>It's Your Responsibility</p></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light title-container responsive present has-light-background fitted" data-background-color="#ff5324" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-title" style="width: 100%; font-size: 1rem;">
+        <div style=""><h2 id="ides">IDEs</h2>
+
+<p>Code Execution Everywhere</p></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light title-container responsive present has-light-background fitted" data-background-color="#ff5c17" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-title" style="width: 100%; font-size: 1rem;">
+        <div style=""><h2 id="secrets">Secrets</h2>
+
+<p>A Developers Nightmare</p></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light title-container responsive present has-light-background fitted" data-background-color="#ff6611" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-title" style="width: 100%; font-size: 1rem;">
+        <div style=""><h2 id="build">Build</h2>
+
+<p>Trust, Trust, Trust</p></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light title-container responsive present has-light-background fitted" data-background-color="#ff700b" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-title" style="width: 100%; font-size: 1rem;">
+        <div style=""><h2 id="reproducible">Reproducible</h2>
+
+<p>The Same As Always, Please!</p></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light title-container responsive present has-light-background fitted" data-background-color="#ff7a05" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-title" style="width: 100%; font-size: 1rem;">
+        <div style=""><h2 id="secrets">Secrets</h2>
+
+<p>Yes Again!</p></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light title-container responsive present has-light-background fitted" data-background-color="#ff8400" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-title" style="width: 100%; font-size: 1rem;">
+        <div style=""><h2 id="distribute">Distribute</h2>
+
+<p>Getting It Out There</p></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light title-container responsive present has-light-background fitted" data-background-color="#ff9400" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-title" style="width: 100%; font-size: 1rem;">
+        <div style=""><h2 id="runtime">Runtime</h2>
+
+<p>It's Too Late Now, But it's Okay</p></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+      
+</section><section class="variable-size-headings has-header light v-split-container responsive present fit-warning has-light-background fitted" data-background-color="#ffa400" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-v-split media-grid" style="width: 100%; font-size: 0.719rem;">
+        <div style=""><h2 id="tauri">Tauri</h2>
+
+<p>Security Team</p>
+
+<p><a href="mailto:tillmann@tauri.app">tillmann@tauri.app</a></p>
+<div class="single-image-wrapper"><figure><img src="images/qrcode-20240307-045705.svg" class=" size-contain position-center-center"></figure></div></div>
+        <div style=""><h2 id="crabnebula">CrabNebula</h2>
+
+<p>Director of Security</p>
+
+<p><a href="mailto:tillmann@crabnebula.dev">tillmann@crabnebula.dev</a></p>
+<div class="single-image-wrapper"><figure><img src="images/qrcode-20240307-045712.svg" class=" size-contain position-center-center"></figure></div></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+</section><section class="variable-size-headings has-header light grid-container responsive present fit-warning has-light-background fitted" data-background-color="#ffb400" data-updated="true" style="display: grid;">
+
+      <div class="header"><div class="leading"></div><div class="middle"></div><div class="trailing"><img class="logo" src="images/Icon.svg"></div></div>
+      <div class="layout-grid grid-items-2 has-2-images has-only-media media-grid" style="width: 100%; font-size: 0.297rem;">
+        <div style=""><div class="single-image-wrapper"><figure><img src="images/qrcode-20240307-043150.svg" class=" size-contain position-center-center"></figure></div>
+
+<h4 id="talk-hardeningopensourcedevelopment"><a href="https://media.ccc.de/v/34c3-9249-hardening_open_source_development">Talk - Hardening Open Source Development</a></h4>
+<div class="single-image-wrapper"><figure><img src="images/qrcode-20240307-043221.svg" class=" size-contain position-center-center"></figure></div>
+
+<h4 id="talk-reproduciblebuildsthefirsttenyears"><a href="https://media.ccc.de/v/camp2023-57236-reproducible_builds_the_first_ten_years">Talk - Reproducible Builds, the first ten years</a></h4>
+<div class="single-image-wrapper"><figure><img src="images/qrcode-20240307-043411.svg" class=" size-contain position-center-center"></figure></div>
+
+<h4 id="talk-slsasigstoresbomsoftwaresupplychainsecurity.whatdoesitallmean"><a href="https://www.youtube.com/watch?v=hF95PiItWtM">Talk - SLSA, SigStore, SBOM &amp; Software Supply Chain Security. What does it all mean?</a></h4></div><div style=""><div class="single-image-wrapper"><figure><img src="images/qrcode-20240307-043441.svg" class=" size-contain position-center-center"></figure></div>
+
+<h4 id="video-whatarehardwaresecuritymoduleshsmwhyweneedthemandhowtheywork."><a href="https://www.youtube.com/watch?v=szagwwSLbXo">Video - What are hardware security modules (HSM), why we need them and how they work.</a></h4>
+<div class="single-image-wrapper"><figure><img src="images/qrcode-20240307-043559.svg" class=" size-contain position-center-center"></figure></div>
+
+<h4 id="video-whatisabrowsersecuritysandbox"><a href="https://www.youtube.com/watch?v=StQ_6juJlZY">Video - What is a Browser Security Sandbox?!</a></h4>
+<div class="single-image-wrapper"><figure><img src="images/qrcode-20240307-043254.svg" class=" size-contain position-center-center"></figure></div>
+
+<h4 id="guide-ossfnpmbestpracticesguide"><a href="https://github.com/ossf/package-manager-best-practices/blob/main/published/npm.md">Guide - OSSF NPM best practices Guide</a></h4></div>
+      </div>
+      <div class="footnotes"></div>
+      <div class="footer"><div class="leading"></div><div class="middle"></div><div class="trailing"></div></div>
+</section></div>
+    </div>
+    <script src="engine/index.js"></script>
+    <!--<script src="engine/d3v4.min.js" charset="utf-8"></script>
+    <script src="engine/charts.min.js" charset="utf-8"></script>
+    <script src="engine/billboard.min.js"></script>-->
+    <script src="engine/pptxgen.min.js"></script>
+                                                   <script src="engine/pfill.js"></script>
+    <script src="engine/published.js"></script>
+
+    <script>
+      Reveal.configure({
+        progress: true,
+        keyboard: true,
+        dependencies: [
+          {
+            src: "engine/highlight.js",
+            sync: true,
+            callback: function () {
+              hljs.initHighlightingOnLoad();
+            },
+          },
+        ],
+      });
+    </script>
+  </body>
+</html>

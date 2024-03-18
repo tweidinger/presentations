@@ -181,15 +181,33 @@ You can assume that your application won't be able to compromise the end user's 
 When building a native application, there is no browser sandbox or environment and you are responsible for writing code that does not compromise and break the user's device.
 
 For the threat model of a Tauri application we need to consider a mix of both. But to fully understand where to apply which perspective, let us start with the general architecture of a Tauri and its trust boundaries.
+
+---
+## What is a Trust Boundary?
+
+	> Trust boundary is a term used in computer science and security which describes a boundary where program data or execution changes its level of "trust," or where two principals with different capabilities exchange data or commands. (*Wikipedia*)
+
+Before we delve into Tauri's boundaries, we start with a short alignment on how we understand Trust Boundaries.
+
+Trust is something depending on the implementation and the perspective. It is a very broad term and is a central topic in IT-Security and the exact definition needs to be defined for each scenario.
+
+Another thing we can derive from the definition on the slide is that there are different levels of trust and sometimes data is passed between these levels. When something is transferred into another level, it can end up in a higher or of lower level of trust.
+
+Whenever it changes it's level, it has to pass a boundary and this is where the uncertainty happens and actual security vulnerabilities can occur.
+
+Whenever something passes this boundary unintentional it is called a trust boundary violation.
+
+Inspecting and strongly defining all data passed between boundaries is very important to prevent these trust boundary violations. If data is passed without access control between these boundaries then it's easy possible for attackers to elevate privileges and abuse the newly gained privileges.
+
 ---
 	Tauri Architecture
 ## Trust Boundaries
 ![](media/security-boundaries.svg)
 
 
-A Tauri application consists of two main trust groups, the WebView maintained by the local system running the front-end code, and the native code of the Tauri application.
+A Tauri application consists of two main trust levels, the WebView maintained by the local system running the front-end code, and the native code of the Tauri application.
 
-The WebView has access to the network but is isolated from full system access. Code written for the front-end must take into account the typical web threat model and, in Tauri's case, also be aware of exposed system features.
+The WebView has access to the network but is isolated from full system access. Code written for the front-end must take into account the typical web threat model and, in Tauri's case, also be aware of exposed system features. We don't need to trust this code beyond the exposed system features, if we exclude 0-day exploits in WebView code.
 
 We call the native part the application core. It contains Tauri's core code, the application-specific backend code and the application plugins. Most of these components are written in Rust, but sometimes they use or interact with other native languages and bindings.
 
@@ -207,40 +225,69 @@ First, we'll focus on the WebView and how it communicates with the application c
 ## IPC
 	Communication across Trust Boundaries
 
-To understand why we can separate the WebView from the application core into different trust groups, it is important to look at the Inter Process Communication, or IPC, between these components.
+To understand why we can separate the WebView from the application core into different trust levels, it is important to look at the Inter Process Communication, or IPC, between these components.
 
-The frontend has no system access by default and all requests to access resources outside the WebView process must go through a well-defined communication protocol.
+The frontend has no direct system access by default and all requests to access resources outside the WebView process must go through a well-defined communication protocol.
 
 This communication takes place between the WebView process and the Tauri process, which means that there is no system wide exposure through a port or socket.
+
+Tauri uses a particular style of Inter-Process Communication called Asynchronous Message Passing, where processes exchange requests and responses serialized using some simple data representation.
+
+Message passing is a safer technique than shared memory or direct function access because the recipient is free to reject or discard requests as it sees fit. For example, if the Tauri Core process determines a request to be malformed, it simply discards the requests and never executes the corresponding function.
+
 ---
 ## Tauri Commands
 ### Rust Backend
-```
+```rust
 #[tauri::command]
 fn my_greeting(message: String) -> String {
   format!("{message} from Rust!")
 }
 ```
-### Javascript Frontend
-```
-invoke('my_greeting').then((message) => console.log(message))
+### JavaScript Frontend
+```js
+invoke('my_greeting'{ message: 'Hello!' }).then((greeting) => console.log(greeting))
 ```
 
 To interact with the Rust based application core, Tauri has a concept called a command. This allows you to implement heavy computation or IO access logic in Rust. It is very easy to use and is used to expose system functionality to the frontend.
 
-Tauri itself and existing Tauri plugins expose commonly requested features such as file system access using this command implementation. For the Rust aware audience: The returned data can be of any type as long as it implements `serde::Serialize`.
+Tauri itself and existing Tauri plugins expose commonly requested features such as file system access using this command implementation.
 
-For front-end developers, many plugins already expose generated typescript bindings to their commands, so you can stay in your Intellisense comfort zone and write maintainable code.
+For the Rust aware audience: The returned data can be of any type as long as it implements `serde::Serialize`.
+
+For front-end developers, many plugins already expose generated Typescript bindings to their commands, so you can stay in your Intellisense comfort zone and write maintainable code.
+
+---
+## Tauri Events
+### JavaScript Frontend
+```js
+emit('click', { message: 'Tauri is awesome!' })
+```
+```js
+window.emit('event', { message: 'Tauri is awesome!' })
+```
+### Rust Backend
+```rust
+app.emit_all("event-name", Payload { message: "Tauri is awesome!".into() }).unwrap();
+```
+```rust
+main_window.emit("event-name", Payload { message: "Tauri is awesome!".into() }).unwrap();
+```
+
+The Tauri event system is a multi-producer multi-consumer communication primitive that allows message passing between the frontend and the backend. It is similar to the command system, but a payload type check must be written on the event handler and it simplifies communication from the backend to the frontend, working like a channel.
+
+A Tauri application can listen and emit global and window-specific events. It can be used from the Frontend and Backend and meant to pass simple messages without granting specific privileges.
 
 ---
 ## Recap
 	Getting Beyond Basics
 
-We've discussed the very basic Tauri knowledge and a very simplified, too long to listen to recap is required for the next few slides:
+We've discussed the very basic Tauri knowledge up til now. A very simplified, too long didn't listen recap for the next few slides:
 
 Tauri applications are local applications that run on the end user device, mobile or desktop, contain backends written primarily in Rust, frontend written in any web framework, communication exists between both components.
 
 As mentioned earlier, web developers tend to live in a happy bubble, confined to a browser, with backend code running on a trusted server.
+
 ---
 ## Hostile Environment
 	You can't trust anything!
@@ -251,6 +298,7 @@ This is scary from an app developer's perspective, but also from a user's perspe
 
 How can the user restrict apps to access only what they should?
 How can app developers build their applications to regain some kind of trust?
+
 ---
 ## Sandboxing
 	Finding The Balance
@@ -261,7 +309,6 @@ Sandboxing allows developers, users and operating systems to define access contr
 
 ---
 ![](media/sandboxing_cycle_2x.png)
-
 
 
 Whenever you restrict something for security reasons, people feel restricted. They want something simpler and easier to use to get quick results.
@@ -316,7 +363,7 @@ Let's explore Tauri's built-in sandboxing capabilities.
 ---
 ## Permissions
 	Define Command Exposure
-```
+```toml
 [[permission]]
 identifier = "my-permission"
 description = "Reading files is only exposed on Windows"
@@ -336,14 +383,14 @@ Plugin developers can provide out-of-the-box permissions that enable single comm
 
 Sometimes this exposure only makes sense on certain platforms, so it is possible to list the platforms to which a particular assumption-based permission applies.
 
-This example allows the `read_file' command to be exposed on Windows builds only. It uses the `fs' filesystem plugin, which is indicated by the namespace in front of the command name.
+This example allows the `read_file` command to be exposed on Windows builds only. It uses the `fs` filesystem plugin, which is indicated by the namespace in front of the command name.
 
 Permissions can also be used to fine-tune access to enabled commands by using something called scopes.
 
 ---
 ## Scopes
 	Define Fine Grained Access
-```
+```toml
 [[scope.allow]]
 path = "$HOME/*"
 
@@ -371,7 +418,7 @@ Ultimately, it will run on the user's device with your application code.
 
 ---
 ## Capabilities
-```
+```json
 {
   "identifier": "mobile-capability",
   "windows": ["main"],
@@ -425,7 +472,10 @@ The capability system also provides an easier to use system in standard cases, b
 
 ---
 ## Content Security Policy
-	Good Old Friend
+	First Layer of Defense
+```text
+default-src 'self'; connect-src ipc: http://ipc.localhost
+```
 
 Tauri applications support the well known Content Security Policy (CSP) based on the WebView system.
 
@@ -675,58 +725,54 @@ Giving your users an easy and secure way to report vulnerabilities and other sec
 
 You will always have a weak link in your chain, but as long as you have properly implemented and thoroughly considered everything we have discussed so far, you should have a reasonably secure cross-platform application to be proud of.
  
+
 ---
-	Contact Tauri: [tillmann@tauri.app](mailto:tillmann@tauri.app)
+## Tauri
+	Security Team
+	[tillmann@tauri.app](mailto:tillmann@tauri.app)
 ![](media/qrcode-20240307-045705.svg)
 
 
-	Contact Work:
+## CrabNebula
+	Director of Security
 	[tillmann@crabnebula.dev](mailto:tillmann@crabnebula.dev)
 ![](media/qrcode-20240307-045712.svg)
 
 
-	[https://tauri.app](https://tauri.app)
-![](media/qrcode-20240307-040344.svg)
-
-
-	[https://crabnebula.dev](https://crabnebula.dev)
-![](media/qrcode-20240307-040333.svg)
-
-
-	[Talk - Hardening Open Source Development](https://media.ccc.de/v/34c3-9249-hardening_open_source_development)
-![](media/qrcode-20240307-043150.svg)
-
-
-	[Talk - Reproducible Builds, the first ten years](https://media.ccc.de/v/camp2023-57236-reproducible_builds_the_first_ten_years)
-![](media/qrcode-20240307-043221.svg)
-
-
-	[Talk - SLSA, SigStore, SBOM & Software Supply Chain Security. What does it all mean? - Abdel Sghiouar](https://www.youtube.com/watch?v=hF95PiItWtM)
-![](media/qrcode-20240307-043411.svg)
-
-
-	 [Video - What are hardware security modules (HSM), why we need them and how they work.](https://www.youtube.com/watch?v=szagwwSLbXo)
-![](media/qrcode-20240307-043441.svg)
-
-
-	[Video - What is a Browser Security Sandbox?!](https://www.youtube.com/watch?v=StQ_6juJlZY) 
-![](media/qrcode-20240307-043559.svg)
-
-
-	[Guide -OSSF NPM best practices Guide](https://github.com/ossf/package-manager-best-practices/blob/main/published/npm.md)
-![](media/qrcode-20240307-043254.svg)
-
-
-	[Book - highassurance.rs](https://highassurance.rs/)
-![](media/qrcode-20240307-043503.svg)
-
-
-	[Reasonable Secure Operating System - Qubes OS Introduction](https://www.qubes-os.org/intro/)
-![](media/qrcode-20240307-043523.svg)
-
-
 All of the presented Topics are just a general introduction, so you can go way beyond the mentioned steps and there is still a lot missing for more nuanced threat modeling but most of these topics deserve an individual talk.
 
-I have compiled a non-exhaustive collection of previous work I can recommend.
+If you have any questions or would like to discuss some topics more in depths feel free to reach out either in the Tauri project or to my employer CrabNebula making this presentation and a lot of contributions around Tauri possible.
 
-If you have any questions or would like to discuss some topics more in depths feel free to reach out either in the Tauri project or to my employer making this presentation and a lot of contributions around Tauri possible.
+I have compiled a non-exhaustive collection of previous work I can recommend and will show after this slide.
+
+Thank you for your attention and time, it was a pleasure.
+
+---
+
+![](media/qrcode-20240307-043150.svg)
+
+#### [Talk - Hardening Open Source Development](https://media.ccc.de/v/34c3-9249-hardening_open_source_development)
+![](media/qrcode-20240307-043221.svg)
+
+#### [Talk - Reproducible Builds, the first ten years](https://media.ccc.de/v/camp2023-57236-reproducible_builds_the_first_ten_years)
+![](media/qrcode-20240307-043411.svg)
+
+#### [Talk - SLSA, SigStore, SBOM & Software Supply Chain Security. What does it all mean?](https://www.youtube.com/watch?v=hF95PiItWtM)
+
+![](media/qrcode-20240307-043441.svg)
+
+#### [Video - What are hardware security modules (HSM), why we need them and how they work.](https://www.youtube.com/watch?v=szagwwSLbXo)
+![](media/qrcode-20240307-043559.svg)
+
+#### [Video - What is a Browser Security Sandbox?!](https://www.youtube.com/watch?v=StQ_6juJlZY) 
+![](media/qrcode-20240307-043254.svg)
+
+#### [Guide - OSSF NPM best practices Guide](https://github.com/ossf/package-manager-best-practices/blob/main/published/npm.md)
+
+
+
+
+
+
+
+
