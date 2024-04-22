@@ -2,28 +2,27 @@
 ### Reasonably Secure Edition
 
 Hello and welcome everyone, thank you for joining us and taking the time to learn more about web-based cross-platform applications.
----
-## What Will You Learn? 
 
-To set expectations from the start, I will explain what this talk will and will not cover. Let's start with what's not in scope.
+To set expectations from the start, I will explain what this talk will and will not cover. 
 
-You won't learn about web development basics or frameworks, rust or how to get your finished apps into every available app store.
+You won't learn about web development basics or frameworks, the Rust language or how to get your finished app into app stores.
 
 Instead, we will cover the whole story of what you should know before and while building your Tauri app.
 
-Tauri is a cross-platform app development framework.
+Tauri is a cross-platform app development framework and this talk will cover the basics of Tauri 2.0 and the development lifecycle with a focus on security considerations.
 
-This talk will cover the basics of Tauri in version 2 and the development lifecycle with a focus on security considerations.
 ---
 ## What is an *App* really?
 
-Before we get into the technical details, I would like to redefine some basic terms. We all know the word app and probably use it at least once a week, but what is the definition of an app and why is it so important in our everyday lives?
+Before we get into technical details, I would like to redefine some basic term.
+
+We all know the word app and probably use it at least once a week, but what is the generic definition of an app?
 
 ---
 |----|
 | > **Application software** |
 | > **Mobile app**, software designed to run on smartphones and other mobile devices |
-|> **Web application** or web app, software designed to run inside a web  |
+|> **Web application** or web app, software designed to run inside a web browser |
 
 
 If you look at the Wikipedia page for "app", you will see different definitions of the word, depending on the context.
@@ -50,55 +49,68 @@ This is expensive and time-consuming for companies, and not every developer is w
 #### Simple
 ## Tauri
 
-![](media/TAURI_Glyph_Color.svg)
+/assets/TAURI_Glyph_Color.svg
+size: contain
+x: right
 
-
-
-This is where you can say hello to the new best friend of enterprises, web or native developers, and anyone who supports a diverse user base on their respective platform.
+This is where you can say hello to the new best friend of enterprises, web or native developers and anyone who supports a diverse user base on their respective platform.
 
 The framework I am about to introduce is called Tauri.
 
-Tauri combines the categories of desktop, mobile and web applications, allowing you to build an application for every major operating system out there from a single code base.
+Tauri combines the categories of desktop, mobile and web applications, allowing you to build an application for all major operating systems out there from a single code base.
 
-It allows web developers to write cross-platform user interfaces the way they are used to, using their favourite web front-end framework, while interacting with the system the application is running on.
+It allows web developers to write cross-platform user interfaces the way they are used to, using their favourite web front-end framework, while interacting with the system.
 
 It allows native developers to focus on great backend functionality for each platform and leave the writing of consistent user interfaces to web developers. They can also write backends as plugins, which means the native interaction can be reused by many different projects.
 
+Before we get further into the technical side, I would like to demonstrate how easy it is to create a Tauri application from scratch.
+
 ---
-![](media/Screenshot 2024-02-26 at 17.29.03.png)
+/assets/bootstrap-project.mp4
+size: contain
 
+I installed the prerequisites of Tauri beforehand and this console recording shows the bootstrap commands using a cli tool called `create-tauri-app` provided from the Tauri website.
 
-Before we get into the more technical stuff, I would like to demonstrate a sample Tauri application running on MacOS and emulated iOS at the same time. 
+These are all commands needed to init the project and we are ready to start developing a new application for desktop and mobile.
 
-It also supports Hot Module Reload (HMR). This means that any changes made to the front-end code in my editor are automatically displayed side-by-side on both platforms without recompiling the backend.
+After completion of the init process and installing the frontend packages I ran `pnpm tauri dev` and `pnpm tauri ios dev` to run both versions in debug mode on my machine.
 
-This is achieved using a local dev server. This also makes it possible to inspect and debug the frontend code in your local web browser.
+---
+/assets/hot-reload-1080.mp4
+size: contain
+
+You can see the code change I make in the `index.html` on the left live updates both Tauri apps at the same time.
+
+This is called Hot Module Reload (HMR). This means that any changes made to the front-end code in my editor are automatically displayed side-by-side on both platforms, without recompiling the backend code.
+
+This is achieved using a local dev server and this also makes it possible to inspect and debug the frontend code in your local web browser.
 
 In release builds, this feature is disabled and no port or server is exposed to the system.
 
-Technically, you can run remote or local emulators such as Android, Linux, Windows and develop with Live Preview for all platforms at the same time.
+Technically, you can run remote or local emulators and develop with this Live Preview for all platforms at the same time.
 
-Tauri theoretically runs on many more platforms depending on WebView and rust target support, so we have people experimenting with visionOS, watchOS, androidTV and even game consoles.
+Tauri theoretically runs on many more platforms depending on WebView and Rust target support, so we have people experimenting with visionOS, watchOS, androidTV and even game consoles.
+
 ---
 ## The Tech Stack
-![](media/TAURI_Glyph_Color.svg)
+/assets/TAURI_Glyph_Color.svg
+size: contain
+/assets/WRY_Logo_Dark.svg
+size: contain
+/assets/TAO_Logo_Dark.svg
+size: contain
 
-![](media/WRY_Logo_Dark.svg)
+/assets/rust-logo-blk.svg
+size: contain
+/assets/Kotlin_logo_2021.svg
+size: contain
+/assets/Swift_logo.svg
+size: contain
 
-![](media/TAO_Logo_Dark.svg)
-
-
-![](media/rust-logo-blk.svg)
-
-![](media/Kotlin_logo_2021.svg)
-
-![](media/Swift_logo.svg)
-
-
-![](media/WebKit_logo_(2015).svg)
-
-![](media/Chromium_Logo.svg)
-
+/assets/WebKit_logo_(2015).svg
+size: contain
+/assets/Chromium_Logo.svg
+size: contain
 
 So let's have a look under the hood.
 
@@ -137,21 +149,21 @@ For frontend developers, mentioning these WebView stacks means that you can use 
 ## WebViews
 	To Bundle, or Not to Bundle?
 
-Talking about web views brings us to an important question. To bundle or not to bundle?
+Talking about WebViews brings us to an important question. To bundle or not to bundle?
 
 The topic of directly bundling a WebView with application code that interacts with the native operating system is not new and has been used by a fair number of frameworks that have been around for a while.
 
 At the beginning of Tauri this question was part of very important discussions.
 
-A common application with a bundled WebView would easily exceed 100 megabytes with almost no functionality.
+A common application with a bundled WebView would easily exceed 100 megabytes with almost no added functionality.
 
 When playing the numbers game by simply calculating the traffic, disk space, environmental overhead and distribution latency for shipping a simple application to thousands of users, it was clear that relying on either pre-installed WebViews or providing an installer to install these WebViews on a system would be the more sustainable choice.
 
 Another very important aspect from a security perspective influenced this decision and that is the security update lag.
 
 ---
-![](media/update-lag (9).svg)
-
+/assets/tauri_update_lag.svg
+size: contain
 
 The issue of update lag is all about responsibility.
 
@@ -180,30 +192,27 @@ You can assume that your application won't be able to compromise the end user's 
 
 When building a native application, there is no browser sandbox or environment and you are responsible for writing code that does not compromise and break the user's device.
 
-For the threat model of a Tauri application we need to consider a mix of both. But to fully understand where to apply which perspective, let us start with the general architecture of a Tauri and its trust boundaries.
+For the threat model of a Tauri application we need to consider a mix of both. But to fully understand where to apply which perspective, we need to understand the trust boundaries.
 
 ---
 ## What is a Trust Boundary?
 
 	> Trust boundary is a term used in computer science and security which describes a boundary where program data or execution changes its level of "trust," or where two principals with different capabilities exchange data or commands. (*Wikipedia*)
 
-Before we delve into Tauri's boundaries, we start with a short alignment on how we understand Trust Boundaries.
-
-Trust is something depending on the implementation and the perspective. It is a very broad term and is a central topic in IT-Security and the exact definition needs to be defined for each scenario.
+Trust is something depending on the implementation and the perspective. It is a very broad term and is a central topic in IT-Security and the exact definition needs to be created for each scenario.
 
 Another thing we can derive from the definition on the slide is that there are different levels of trust and sometimes data is passed between these levels. When something is transferred into another level, it can end up in a higher or of lower level of trust.
 
-Whenever it changes it's level, it has to pass a boundary and this is where the uncertainty happens and actual security vulnerabilities can occur.
+Whenever data changes it's level, it has to pass a boundary and this is where the uncertainty happens and actual security vulnerabilities can occur.
 
 Whenever something passes this boundary unintentional it is called a trust boundary violation.
 
-Inspecting and strongly defining all data passed between boundaries is very important to prevent these trust boundary violations. If data is passed without access control between these boundaries then it's easy possible for attackers to elevate privileges and abuse the newly gained privileges.
+Inspecting and strongly defining all data passed between boundaries is very important to prevent these trust boundary violations. If data is passed without access control between these boundaries then it's easy for attackers to elevate and abuse privileges.
 
 ---
-	Tauri Architecture
 ## Trust Boundaries
-![](media/security-boundaries.svg)
-
+/assets/tauri_trust_boundaries.svg
+size: contain
 
 A Tauri application consists of two main trust levels, the WebView maintained by the local system running the front-end code, and the native code of the Tauri application.
 
@@ -225,15 +234,13 @@ First, we'll focus on the WebView and how it communicates with the application c
 ## IPC
 	Communication across Trust Boundaries
 
-To understand why we can separate the WebView from the application core into different trust levels, it is important to look at the Inter Process Communication, or IPC, between these components.
+Tauri uses something called Inter Process Communication, or IPC, between the core and WebView components.
 
 The frontend has no direct system access by default and all requests to access resources outside the WebView process must go through a well-defined communication protocol.
 
 This communication takes place between the WebView process and the Tauri process, which means that there is no system wide exposure through a port or socket.
 
 Tauri uses a particular style of Inter-Process Communication called Asynchronous Message Passing, where processes exchange requests and responses serialized using some simple data representation.
-
-Message passing is a safer technique than shared memory or direct function access because the recipient is free to reject or discard requests as it sees fit. For example, if the Tauri Core process determines a request to be malformed, it simply discards the requests and never executes the corresponding function.
 
 ---
 ## Tauri Commands
@@ -258,27 +265,6 @@ For the Rust aware audience: The returned data can be of any type as long as it 
 For front-end developers, many plugins already expose generated Typescript bindings to their commands, so you can stay in your Intellisense comfort zone and write maintainable code.
 
 ---
-## Tauri Events
-### JavaScript Frontend
-```js
-emit('click', { message: 'Tauri is awesome!' })
-```
-```js
-window.emit('event', { message: 'Tauri is awesome!' })
-```
-### Rust Backend
-```rust
-app.emit_all("event-name", Payload { message: "Tauri is awesome!".into() }).unwrap();
-```
-```rust
-main_window.emit("event-name", Payload { message: "Tauri is awesome!".into() }).unwrap();
-```
-
-The Tauri event system is a multi-producer multi-consumer communication primitive that allows message passing between the frontend and the backend. It is similar to the command system, but a payload type check must be written on the event handler and it simplifies communication from the backend to the frontend, working like a channel.
-
-A Tauri application can listen and emit global and window-specific events. It can be used from the Frontend and Backend and meant to pass simple messages without granting specific privileges.
-
----
 ## Recap
 	Getting Beyond Basics
 
@@ -295,9 +281,12 @@ As mentioned earlier, web developers tend to live in a happy bubble, confined to
 The reality of local native applications is not so friendly and there is no trust in the local device executing the backend logic. So if you embed secrets in your app, you're really screwed: other apps will try to steal your data, users will reverse-engineer your code, you can't even trust the outcome of cryptographic operations because the system could always be manipulated.
 
 This is scary from an app developer's perspective, but also from a user's perspective.
+Who wants applications to be able to go havoc on their system?
 
-How can the user restrict apps to access only what they should?
-How can app developers build their applications to regain some kind of trust?
+So this end in to two major questions:
+
+- How can the user restrict apps to access only what they should?
+- How can app developers build their applications to regain some kind of trust from users?
 
 ---
 ## Sandboxing
@@ -308,8 +297,8 @@ These old questions have led to an innovation in technology known as sandboxing.
 Sandboxing allows developers, users and operating systems to define access controls to resources. The main problem with sandboxing is perfectly described in this [xkcd](https://xkcd.com/2044/).
 
 ---
-![](media/sandboxing_cycle_2x.png)
-
+/assets/sandboxing_cycle_2x.png "https://xkcd.com/2044/"
+size: contain
 
 Whenever you restrict something for security reasons, people feel restricted. They want something simpler and easier to use to get quick results.
 
@@ -335,6 +324,8 @@ There are built-in solutions such as the iOS and Android app isolation and permi
 
 This approach can help to restrict system access after the application has been shipped, but it is usually not very fine-grained and it is difficult to find a balance between restrictions and usability.
 
+Tauri is compatible with this container sandboxing approach and has active effort to make configuration easier.
+
 ---
 ## Application Logic Sandbox
 	Reasonable Applications
@@ -345,18 +336,7 @@ This can be very fine-grained, with a perfect balance between access restriction
 
 This approach does not protect against other hostile applications on a system. Rather, it is designed to provide a level of trust between the developer and the user, while reducing the impact of security flaws within the application.
 
----
-## Layered Security
-	Swiss cheese
-
-It is not trivial to maintain the balance of the sandbox. 
-
-The Tauri framework provides reasonable ways to achieve this.
-
-Tauri has built-in application level sandboxing features called capabilities, permissions and scopes.
-Tauri is also compatible with, and tries to encourage, common container technologies such as Flatpak.
-
-This allows end users to restrict applications, isolate applications from each other, and developers to restrict access at compile time to reduce the impact of run-time compromises.
+Tauri has built-in application level sandboxing features called capabilities, permissions and scopes. These are designed to control the system access of the Frontend.
 
 Let's explore Tauri's built-in sandboxing capabilities.
 
@@ -435,15 +415,15 @@ The final component of the access control system in Tauri is the capability.
 
 A capability attaches permissions to windows or WebViews.
 
+Tauri applications can run with multiple windows or WebViews. These can host different content with different security assumptions, so each window or WebView can use different permissions.
+
 This is what application developers need to configure and where they rely on plugin or backend developers to have scoping properly implemented.
 
 Tauri itself enforces the exposure of commands and ensures that the correct scope is passed to the command itself.
 
-This example function exposes the NFC functionality to scan tags with `nfc:allow-scan`, the biometric authentication by enabling `biometric:allow-authenticate` and the barcode scanning functionality with `barcode-scanner:allow-scan`.
+This example exposes the NFC functionality to scan tags with `nfc:allow-scan`, the biometric authentication by enabling `biometric:allow-authenticate` and the barcode scanning functionality with `barcode-scanner:allow-scan`.
 
-All these commands are only exposed on iOS and Android and only to the `main' window. If the underlying permissions are not intended for these platforms, they are simply ignored.
-
-Because Tauri applications run with multiple windows or WebViews, they can host different content with different security assumptions.
+All these commands are only exposed on iOS and Android and only to the `main` window.
 
 The capabilities also allow to define if a remote website is loaded in the WebView and should get access to the Tauri APIS. This is quite dangerous, so we don't allow it by default and it must be explicitly configured.
 
@@ -464,11 +444,10 @@ We call this approach "Isolation Pattern".
 This means that all IPC communication first passes through the isolation iFrame via `postMessage`.
 This iFrame can be used to inspect, modify or block the communication by writing this logic in JavaScript.
 
-We can imagine developers wiring their own web application firewall (WAF) or using it to detect compromise.
+We can imagine developers writing their own web application firewall (WAF) or using it to detect compromise.
 
-We haven't seen massive real-world adoption of this feature, so there are probably not enough resources and use cases for front-end developers.
-
-The capability system also provides an easier to use system in standard cases, but for edge cases we imagine this pattern will be helpful for Tauri application developers who are not familiar with Rust.
+We haven't seen massive real-world adoption of this feature, so there are probably not enough resources and use cases for most front-end developers.
+We imagine this pattern will be helpful for Tauri application developers who are not familiar with Rust and need to implement custom security checks.
 
 ---
 ## Content Security Policy
@@ -487,14 +466,21 @@ All bundled assets in a Tauri application are automatically hashed and nonce'd d
 This means you can focus on restricting allowed remote sources.
 
 ---
-## Application Lifecycle Threats
+## Application Development Lifecycle Threats
 	The Weakest Link Defines Security
+
+/assets/security.png "https://xkcd.com/538"
+size: contain
 
 We have covered the basic security features of Tauri, sandboxing and security boundaries.
 
 With this knowledge, you would be able to write a fairly hardened application that could pass as reasonably secure.
 
-But the weakest link in your application lifecycle essentially defines your security, so we need to cover a bit more to get to a reasonable baseline.
+We could conclude the talk here and going home you would likely be thinking:
+
+> "Oh nice I learned a bit about Tauri and security, now I am writing super secure Tauri applications".
+
+But the weakest link in your application lifecycle essentially defines your security, so we need to cover more to actually get to a reasonable security baseline.
 
 I will quote from the Tauri security documentation.
 
@@ -510,6 +496,10 @@ Each step we discuss from now on can compromise the assumptions and integrity of
 ## Upstream
 	The Fragile Shoulders You Stand on
 
+/assets/dependency.png "[https://xkcd.com/2347](https://xkcd.com/2347)"
+
+
+
 Let us start with everything you consume before you can even compile a Tauri application.
 
 Upstream is a very broad term and we won't be able to cover everything relevant in these slides and will mainly focus on Tauri related dependencies.
@@ -519,11 +509,6 @@ Tauri applications depend on WebViews, which means they need to be installed in 
 Tauri itself consumes at least the Rust ecosystem and will introduce hundreds of crates as direct or transient dependencies.
 
 Have you ever used a Rust crate and executed `cargo tree`?
-
-The output usually ranges from a few dozen dependencies in small projects to several thousand crates in very bloated frameworks.
-
-The same goes for your web based frontend and helper tools provided by `npm` packages.
-
 Have you ever run `npm -ls --all` on your frontend project?
 
 There is a reason why people develop graphical tools to visualise and understand dependencies. It's just too much to keep track of.
@@ -540,9 +525,7 @@ Let's focus on the Rust ecosystem for now.
 
 How do you make sure you have the latest and patched cargo packages in your project?
 
-This is where `cargo audit' comes in. It automatically fetches and displays information about packages with known vulnerabilities and compares them with your configured dependencies. Not all vulnerabilities apply directly to your project, so you will need to manually assess the impact.
-
-If you have a checked-in lockfile for builds, it is necessary to use the `--locked` or `--frozen`, flag to ensure that it tests based on the lockfile versions.
+This is where `cargo audit` comes in. It automatically fetches and displays information about packages with known vulnerabilities and compares them with your configured dependencies. Not all vulnerabilities apply directly to your project, so you will need to manually assess the impact.
 
 The complementary tool for this is `cargo auditable`, which embeds all dependencies and their versions as readable data in your compiled rust application.
 
@@ -550,9 +533,11 @@ This allows you to use `cargo audit` on applications deployed in the wild, makin
 
 But what if there is a new version of a package you use with a malicious change that compromises your system?
 
+A Recent example would be the `xz` package which had a maintainer implementing a backdoor to take over Debian machines remotely.
+
 We can't expect developers to read the source code of all their dependencies for every update - it's just not feasible for complex applications.
 
-This is where tools like `cargo crew' and `cargo vet' come in. 
+This is where tools like `cargo crev` and `cargo vet` shine.
 
 Their common goal is to provide a way to trust dependencies, where the responsibility for vetting crate versions is distributed among trusted peers. 
 
@@ -560,22 +545,24 @@ This allows developers to run trusted dependency versions without having to chec
 
 Both have different nuanced approaches to achieving this goal, and you should evaluate which approach makes sense in your threat model.
 
-To find out on whose shoulders you stand, you can use the `cargo supply chain' tool. 
+To find out on whose shoulders you stand, you can use the `cargo supply chain` tool.
+
+It shows you every org and individual being able to publish a dependency you are using.
 This knowledge can be used as a reality check and to find out who you should be supporting.
 
 ---
 ## Upstream JavaScript
 	`npm audit` 
+	That's it?
 
-We have at least one more ecosystem to worry about. The JavaScript ecosystem, with its common `npm` packages, is at least as complex as the Rust crate system, but has even fewer projects to address supply chain issues.
+We have at least one more ecosystem to worry about. The JavaScript ecosystem, with its common `npm` packages, is at least as complex as the Rust crate system, but has even fewer integrated projects to address supply chain issues.
 
 There are commercial and free services like `snyk` or `socket.dev` that will analyse your dependencies and alert you when dependency attacks are detected, but they are not a general recommendation for every project and you should find out which service suits your application.
 
-A simple tool that you are probably familiar with is `npm audit', which is similar to `cargo audit' and highlights known vulnerabilities in your dependencies.
-
-This output is rarely "all good" due to the fast pace of the JavaScript package ecosystem. You will need to manually evaluate each warning to see if it really affects your project.
+The only generic tool that you are probably familiar with is `npm audit`, which is similar to `cargo audit` and highlights known vulnerabilities in your dependencies.
 
 There are several guides to hardening npm, relying on lock files, preventing typo squatting, auditing build scripts, but all of these require the developer to apply them in a correct and nuanced way, so I encourage you to do your own research and apply them to your project if necessary.
+
 ---
 ## Development
 	It's Your Responsibility
@@ -586,20 +573,26 @@ To do this, you need a device running the operating system you want to support w
 
 You can of course virtualise your development environment to keep attackers at bay, but this won't protect you from attacks that target your project rather than just your machine.
 
-If you are collaborating with others, your code will be stored somewhere remotely and it is important to manage access. Providers like GitHub and GitLab have this built in, but you can still mess up the configuration, so checking access regularly can prevent accidents.
-
-You will usually use an integrated development environment (IDE) to edit and interact with source code. These editors all have different threat models and you need to consider what you trust.
-
 ---
 ## IDEs
 	Code Execution Everywhere
 
-Let's look at some examples of what can happen, who you can trust and what you can trust when using Visual Studio Code.
+You will usually use an integrated development environment (IDE) to edit and interact with source code. These editors all have different threat models and you need to consider what you trust.
+
+Let's look at some examples of what can happen, when using Visual Studio Code.
 Most of these apply to other IDEs as well, but VSCode is the most prominent.
 
-What happens when you check out a foreign repository?
+What happens when you check out and open a foreign repository?
+
+---
+/assets/vscode-rce.mp4
 
 VSCode will ask you if you trust it, because it has so many features that a malicious repo could execute code on your system, and they can't guarantee that this won't happen with the default features enabled.
+
+This is why we see code executed in the terminal and a meme displayed in the embedded browser feature without running anything.
+
+Let's be realistic - who here **always** opens unknown repositories in the restricted mode?
+The user interface suggests to go with the nice blue trust button anyway.
 
 VSCode has introduced a sandbox for untrusted projects to limit features, but even this sandbox is not fail-safe, so it is really necessary to trust projects before opening them in VSCode.
 
@@ -609,49 +602,80 @@ Opening untrusted files is always risky, so you may want to use a container, vir
 
 What about compiling a foreign project?
 
-When you compile Rust projects, they can execute code via the `build.rs' system at compile time, so it's necessary to check your project's `build.rs' files before compilation unless you explicitly trust the project.
+---
+Suppose the following rust `main.rs`:
 
-The same applies to `npm` with pre- and post-build hooks. 
+### `main.rs`
+```rust
+fn main() {
+    // Super safe to run me!
+    println!("Hello, world!");
+}
+```
+```
+Hello, world!
+```
+Assume you just checked the `main.rs` file in the untrusted project and concluded it's safe to compile.
 
-What about your plugins?
+You would expect the output below right?
 
-IDEs usually have a thriving ecosystem of plugins that provide features to make the developer's life easier.
+But then you find something weird after compiling the foreign project.
 
-Plugins are able to execute code on your system, so you need to trust them with the same level of trust as you trust VSCode - which do you think is more likely to be compromised?
+---
+## PWNED?
+```
+warning: rust-build-demo@0.1.0: PWNED
+Hello, world!
+```
 
-A small open source project run by a single developer providing a plugin for your IDE, or the IDE itself?
+When you compile Rust projects, attackers can execute code via the `build.rs` system at compile time, so it's necessary to check your project's `build.rs` files before compilation, unless you explicitly trust the project. Additionally, all of your dependencies `build.rs` files will get executed. Inspecting these is a tedious task very few people actually do, as mentioned during the upstream topic.
 
-Checking plugins before installing them and keeping them to an absolute minimum is therefore as important as keeping your IDE up to date.
+---
+### `build.rs`
+```rust
+fn main() {
+    println!("cargo:warning=PWNED");
+    // go wild here
+}
+```
 
-Unfortunately, the VSCode marketplace and plugin system does not really allow you to easily check out plugins. The source code is not always linked and there is no way for the end user to verify that the linked source code is actually the plugin's source code.
+The `build.rs` can execute arbitrary code and this example code is just nice in showing a compiler warning.
+The same applies to `npm` with pre- and post-build hooks.
+
+There are a lot of other ways to compromise your development system via exploits or unknown behavior of your IDEs.
 
 You can containerise your IDE to reduce system impact, but you can't reasonably protect your code from a compromised IDE.
-
-So choose your plugins wisely and only install the ones you really need.
 
 ---
 ## Secrets
 	 A Developers Nightmare
+	`dev.env` `prod.env` `idontknow.env`
 
-
-Managing secrets during development is difficult. Protecting secrets on compromised developer machines is even harder, so the only choice is to externalise secrets and not store them on the same system.
+Managing secrets during development is difficult and most people tend to be blind on this topic as long as they haven't been compromised before. 
 
 A common way is to store git access and signing keys in hardware tokens, but this only protects secrets from being exposed, not from being accessed by compromised development machines.
 
-For developer secrets that can't be stored on a hardware token, you need to make sure that they only have access to development environments, and that their impact if compromised doesn't automatically compromise release builds.
+For developer secrets that can't be stored on a hardware token, you need to make sure that these only have access to development environments.
 
-Advice I can't stress enough: Never use production secrets on development machines.
+Also committing secrets is a thing. There are still thousands of secrets in public git repositories.
+Sometimes not only development secrets but also production secrets.
+
+There are automated secret scanning services integrated into GitHub, GitLab which should be enabled for public repositories but it's better to not completely rely on these.
+
+A good setup has proper push protection for secrets and manages secrets via secret managers. 
+
+Advice I can't stress enough: Never use or store production secrets on development machines.
 
 ---
 ## Build
-	Trust, Trust, Trust
+	Trust, Trust, Trust?!
 
 So you have made the long journey to finally build a release version of your application.
 
 The first question is where to build it?
 Locally or remotely? 
 
-In 99% of cases it will be remote, because you don't want to build on your development system, and you don't have a dedicated release building system.
+In most cases it will be remote, because you don't want to build on your development system, and you don't have a dedicated release building system.
 
 Sometimes you explicitly want to build releases locally, because you don't want to trust others with your production secrets. This allows you to use hardware under your control, which simplifies the threat model, but makes cutting releases a bus factor and complicated in fast-paced development.
 
@@ -665,53 +689,46 @@ When you use a platform like GitHub to compile and produce release assets, you t
 
 To combat backdoor injection at build time, you need your builds to be reproducible, so that you can verify that the build assets are exactly the same when you build them locally or on another independent provider.
 
-The first problem is that Rust is not fully capable of reliably producing reproducible builds at all times. It supports this in theory, but there are still bugs, and it recently broke on a new release. You can keep track of the current state in the rust project's public bug tracker.
+The first problem is that Rust is by default not fully capable of reliably producing reproducible builds. It supports this in theory, but there are still bugs, and it recently broke on a release. You can keep track of the current state in the rust project's public bug tracker.
 
 The next problem you will encounter is that many common frontend bundlers do not produce reproducible output either, so the bundled assets may also break reproducible builds.
 
-This means that you cannot fully rely on reliable reproducible builds by default, and should test this for your own application before deciding to trust external vendors to build your application.
+This means that you cannot fully rely on reproducible builds by default, and sadly need to fully trust external vendors to build your application.
 
 ---
-## Secrets
-	Yes Again!
+## Production Secrets
+	```yml
+	# Keep This Secret!!!
+	PROD_SECRET="Correct Horse Battery Staple"
+	```
 
-Production secrets are a tricky thing. You __MUST__ trust a remote entity not to abuse or leak your secrets.
+Production secrets are a tricky thing. You __MUST__ trust a remote entity not to abuse or leak your secrets. 
 
-Tauri has an updater plugin for desktop builds that allows the application to update itself. The private key used to sign the updater assets must not be leaked under any circumstances, as the whole process depends on it being a secret value.
+Tauri has an updater plugin for desktop builds that allows the application to update itself. The private key used to sign the updater assets must not be leaked under any circumstances, as the whole process depends on it being a secret value. These are exposed at compile time, so as said before you need to trust the build system.
 
-To build production-ready versions, you'll also need to sign your produced assets, as your app won't run on iOS or macOS without a proper Apple developer certificate.
-
-Windows will also give you nasty warnings and sometimes block execution if it is not signed with a certificate provided by Microsoft or one of its partners.
-
-Android requires you to sign the APK, but it does not need to be a special certificate.
-
-These certificates used in the build process are theoretically required to be stored in a hardware security token, so you need to give your build process access to them and ensure they are not revoked or expired.
-
-I say "theoretically" because Microsoft's whole enforcement process still relies on the developer not blatantly lying. This is more compliance theatre to ensure cash flow for these certificate vendors, but that rant belongs in another presentation.
-
-If secrets are properly stored only on hardware tokens, a compromised build system won't be able to leak involved signing keys, but could use them to sign malicious releases.
+If cryptographic secrets are properly stored on hardware tokens, a compromised build system won't be able to leak involved signing keys, but could use them to sign malicious releases.
 
 Other secrets used in your build flow that are not stored on hardware tokens are fully accessible to your build systems and should therefore be rotated regularly and monitored for compromise.
 
 ---
+/assets/cloud-icon.svg
+size: contain
+	[Crabnebula.Cloud](https://crabnebula.cloud)
 ## Distribute
-	Getting It Out There
 
 You have successfully built, signed and validated your application, and now you want to distribute it to your users.
 
-This is the last step you can at least partially control before it gets into the hands of untrusted systems with users eager to hack your application.
+This is the last step you can at least partially control before it gets into the hands of fully untrusted systems with users eager to hack your application.
 
 For initial distribution, and depending on the operating system you are targeting, you can distribute via app stores or direct downloads from your website.
 
-On desktop systems, the Tauri updater plugin can secure updates for end users, but as mentioned above, if your signing key is compromised, it's game over.
+There is a new solution for making distribution of Tauri apps easy and convenient at [crabnebula.cloud](https://crabnebula.cloud) which is linked here. Currently offering free trials and open source plans. Disclaimer: I work for this company and am involved in the security of the product.
 
-The infrastructure for hosting your updater endpoint shouldn't be compromised, but the biggest impact, apart from simply not shipping the update, would be a downgrade attack by shipping an older and vulnerable version that pretends to be a newer version.
+The infrastructure for hosting your Tauri updater endpoint shouldn't be compromised, but the biggest impact, apart from simply not shipping the update, would be a downgrade attack by shipping an older and vulnerable version that pretends to be a newer version.
 
-So some trust is needed in the distribution infrastructure, but less than in the build and signing infrastructure.
+So some trust is needed in the distribution infrastructure, but a lot less than in the build and signing infrastructure.
 
-You should publish the signatures/hashes of your assets so that others can verify them locally.
-
-For non-desktop applications, or if you are not using the updater, you will need to manually verify that the distributed asset matches what you have previously built.
+You should publish the signatures/hashes of your application build assets so that users can verify them locally.
 
 ---
 ## Runtime
@@ -721,54 +738,61 @@ So your application has made it to the user, what can go wrong at this point?
 
 Anything, because it's the most hostile environment imaginable, but there's almost nothing you can do about it.
 
-Giving your users an easy and secure way to report vulnerabilities and other security issues, and keeping a close eye on your project, is the last thing you can do.
+Giving your users an easy and secure way to report vulnerabilities and keeping a close eye on your project, is the last thing you can do.
 
 You will always have a weak link in your chain, but as long as you have properly implemented and thoroughly considered everything we have discussed so far, you should have a reasonably secure cross-platform application to be proud of.
  
 
 ---
 ## Tauri
+/assets/TAURI_Glyph_Color.svg
+size: contain
 	Security Team
 	[tillmann@tauri.app](mailto:tillmann@tauri.app)
-![](media/qrcode-20240307-045705.svg)
-
+/assets/qrcode-20240307-045705.svg
+size: contain
 
 ## CrabNebula
+/assets/Icon.svg
+size: contain
 	Director of Security
 	[tillmann@crabnebula.dev](mailto:tillmann@crabnebula.dev)
-![](media/qrcode-20240307-045712.svg)
+/assets/qrcode-20240307-045712.svg
+size: contain
 
+All of the presented Topics are just a general introduction, so you can go way beyond the mentioned steps and there is still a lot missing for more nuanced threat modeling but most of these topics deserve an individual talk. 
 
-All of the presented Topics are just a general introduction, so you can go way beyond the mentioned steps and there is still a lot missing for more nuanced threat modeling but most of these topics deserve an individual talk.
+If you have any questions or would like to discuss some topics more in depth, feel free to reach out. Either in the Tauri project or to my employer CrabNebula, making this presentation and a lot of my contributions around Tauri possible.
 
-If you have any questions or would like to discuss some topics more in depths feel free to reach out either in the Tauri project or to my employer CrabNebula making this presentation and a lot of contributions around Tauri possible.
-
-I have compiled a non-exhaustive collection of previous work I can recommend and will show after this slide.
+Lastly, I have compiled a non-exhaustive collection of previous work I can recommend and will show after this slide.
 
 Thank you for your attention and time, it was a pleasure.
 
 ---
 
-![](media/qrcode-20240307-043150.svg)
-
+/assets/talk-hardening-open-source.svg
+size: contain
 #### [Talk - Hardening Open Source Development](https://media.ccc.de/v/34c3-9249-hardening_open_source_development)
-![](media/qrcode-20240307-043221.svg)
 
+/assets/qrcode-20240307-043221.svg
+size: contain
 #### [Talk - Reproducible Builds, the first ten years](https://media.ccc.de/v/camp2023-57236-reproducible_builds_the_first_ten_years)
-![](media/qrcode-20240307-043411.svg)
 
+/assets/qrcode-20240307-043411.svg
+size: contain
 #### [Talk - SLSA, SigStore, SBOM & Software Supply Chain Security. What does it all mean?](https://www.youtube.com/watch?v=hF95PiItWtM)
 
-![](media/qrcode-20240307-043441.svg)
-
+/assets/qrcode-20240307-043441.svg
+size: contain
 #### [Video - What are hardware security modules (HSM), why we need them and how they work.](https://www.youtube.com/watch?v=szagwwSLbXo)
-![](media/qrcode-20240307-043559.svg)
 
+/assets/qrcode-20240307-043559.svg
+size: contain
 #### [Video - What is a Browser Security Sandbox?!](https://www.youtube.com/watch?v=StQ_6juJlZY) 
-![](media/qrcode-20240307-043254.svg)
 
+/assets/qrcode-20240307-043254.svg
+size: contain
 #### [Guide - OSSF NPM best practices Guide](https://github.com/ossf/package-manager-best-practices/blob/main/published/npm.md)
-
 
 
 

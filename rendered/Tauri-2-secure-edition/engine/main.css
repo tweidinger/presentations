@@ -5151,6 +5151,9 @@ section hgroup p.kicker{
     font-size: 1.6em;
 }
 
+.fixed-size-headings hgroup p.kicker{
+    font-size: 0.9em;
+}
 
 .reveal .portrait [class*="layout-"] > :not([class*="layout-"]) {
       position: relative;
@@ -5200,27 +5203,27 @@ section hgroup p.kicker{
 
 
 /* less colored grid frames*/
-.reveal section:not(.has-header,.has-footer,.has-footnotes) .grid-items-4,
-.reveal section:not(.has-header,.has-footer,.has-footnotes) .grid-items-5,
-.reveal section:not(.has-header,.has-footer,.has-footnotes) .grid-items-6,
-.reveal section:not(.has-header,.has-footer,.has-footnotes) .grid-items-7,
-.reveal section:not(.has-header,.has-footer,.has-footnotes) .grid-items-8,
-.reveal section:not(.has-header,.has-footer,.has-footnotes) .grid-items-9,
-.reveal section:not(.has-header,.has-footer,.has-footnotes) .grid-items-10,
-.reveal section:not(.has-header,.has-footer,.has-footnotes) .grid-items-11,
-.reveal section:not(.has-header,.has-footer,.has-footnotes) .grid-items-12{
+.reveal section:not(.has-header,.has-footer,.has-footnotes) .grid-items-4.has-only-media,
+.reveal section:not(.has-header,.has-footer,.has-footnotes) .grid-items-5.has-only-media,
+.reveal section:not(.has-header,.has-footer,.has-footnotes) .grid-items-6.has-only-media,
+.reveal section:not(.has-header,.has-footer,.has-footnotes) .grid-items-7.has-only-media,
+.reveal section:not(.has-header,.has-footer,.has-footnotes) .grid-items-8.has-only-media,
+.reveal section:not(.has-header,.has-footer,.has-footnotes) .grid-items-9.has-only-media,
+.reveal section:not(.has-header,.has-footer,.has-footnotes) .grid-items-10.has-only-media,
+.reveal section:not(.has-header,.has-footer,.has-footnotes) .grid-items-11.has-only-media,
+.reveal section:not(.has-header,.has-footer,.has-footnotes) .grid-items-12.has-only-media{
     background: var(--lightframecolor, #000000);
 }
 
-.reveal section:not(.has-header,.has-footer,.has-footnotes).dark .grid-items-4,
-.reveal section:not(.has-header,.has-footer,.has-footnotes).dark .grid-items-5,
-.reveal section:not(.has-header,.has-footer,.has-footnotes).dark .grid-items-6,
-.reveal section:not(.has-header,.has-footer,.has-footnotes).dark .grid-items-7,
-.reveal section:not(.has-header,.has-footer,.has-footnotes).dark .grid-items-8,
-.reveal section:not(.has-header,.has-footer,.has-footnotes).dark .grid-items-9,
-.reveal section:not(.has-header,.has-footer,.has-footnotes).dark .grid-items-10,
-.reveal section:not(.has-header,.has-footer,.has-footnotes).dark .grid-items-11,
-.reveal section:not(.has-header,.has-footer,.has-footnotes).dark .grid-items-12{
+.reveal section:not(.has-header,.has-footer,.has-footnotes).dark .grid-items-4.has-only-media,
+.reveal section:not(.has-header,.has-footer,.has-footnotes).dark .grid-items-5.has-only-media,
+.reveal section:not(.has-header,.has-footer,.has-footnotes).dark .grid-items-6.has-only-media,
+.reveal section:not(.has-header,.has-footer,.has-footnotes).dark .grid-items-7.has-only-media,
+.reveal section:not(.has-header,.has-footer,.has-footnotes).dark .grid-items-8.has-only-media,
+.reveal section:not(.has-header,.has-footer,.has-footnotes).dark .grid-items-9.has-only-media,
+.reveal section:not(.has-header,.has-footer,.has-footnotes).dark .grid-items-10.has-only-media,
+.reveal section:not(.has-header,.has-footer,.has-footnotes).dark .grid-items-11.has-only-media,
+.reveal section:not(.has-header,.has-footer,.has-footnotes).dark .grid-items-12.has-only-media{
     background: var(--darkframecolor, #000000);
 }
 

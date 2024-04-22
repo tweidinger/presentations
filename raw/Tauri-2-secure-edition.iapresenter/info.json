@@ -1,0 +1,11 @@
+{
+  "creatorIdentifier" : "net.ia.presenter",
+  "net.ia.presenter" : {
+    "appearance" : "light",
+    "headertrailing" : "logo",
+    "logo" : "\/assets\/Icon.svg"
+  },
+  "transient" : false,
+  "type" : "net.daringfireball.markdown",
+  "version" : 2
+}
